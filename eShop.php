@@ -1,3 +1,7 @@
+<?php
+// Start the session
+session_start();
+?>
 <html>
 <title>eShop</title>
 	<head>
