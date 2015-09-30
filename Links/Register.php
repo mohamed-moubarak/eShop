@@ -12,8 +12,8 @@
 error_reporting(E_ALL);
 $servername = "localhost";
 $username = "root";
-$passwordd = "root";
-$dbname = "eShop";
+$passwordd = "";
+$dbname = "eshop";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $passwordd, $dbname);
@@ -27,7 +27,7 @@ echo "Connected successfully";
 }
 
 $firstname=$lastname=$email=$password=$telephone=$address=$avatar=$firstnametmp=$lastnametmp=$emailtmp=$passtmp=$telephonetmp="";
-$firstnameErr=$lastnameErr=$passwordErr=$telephoneErr=$addressErr=$avatarErr="";
+$firstnameErr=$lastnameErr=$passwordErr=$telephoneErr=$addressErr=$avatarErr=$emailErr="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -177,12 +177,7 @@ VALUES ('$firstname', '$lastname', '$email', '$password', '$telephone', '$addres
 $_SESSION["email"] = '$email';
 
 }
-if ($conn->query($sql) === TRUE) {
-    
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-mysql_close($conn);
+mysqli_close($conn);
 ?>
 
 </body>
