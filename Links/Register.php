@@ -1,19 +1,25 @@
+<?php session_start(); ?>
 <!DOCTYPE HTML> 
 
 <html>
 <head>
-<style>
+<meta  name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"> 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style type="text/css">
 .error {color: #FF0000;}
 </style>
 </head>
 <body> 
+  <div class="container">
 <?php
 // define variables and set to empty values
 error_reporting(E_ALL);
 $servername = "localhost";
 $username = "root";
-$passwordd = "";
-$dbname = "eshop";
+$passwordd = "root";
+$dbname = "esHop";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $passwordd, $dbname);
@@ -21,9 +27,6 @@ $conn = mysqli_connect($servername, $username, $passwordd, $dbname);
 // Check connection
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
-}else
-{
-echo "Connected successfully";
 }
 
 $firstname=$lastname=$email=$password=$telephone=$address=$avatar=$firstnametmp=$lastnametmp=$emailtmp=$passtmp=$telephonetmp="";
@@ -145,40 +148,47 @@ function test_input($data) {
 <h2>Registeration Form</h2>
 <p><span class="error">* required field.</span></p>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
-   First Name: <input type="text" name="firstname" maxlength="40" value="<?php echo $firstname;?>">
+  <div class="row">
+   <div class="col-sm-2">First Name:</div> <input type="text" name="firstname" maxlength="40" value="<?php echo $firstname;?>">
    <span class="error">* <?php echo $firstnameErr;?></span>
    <br><br>
-   Last Name: <input type="text" name="lastname" maxlength="40" value="<?php echo $lastname;?>">
+   <div class="col-sm-2">Last Name: </div> <input type="text" name="lastname" maxlength="40" value="<?php echo $lastname;?>">
    <span class="error">* <?php echo $lastnameErr;?></span>
    <br><br>
-   E-mail: <input type="text" name="email" maxlength="127" value="<?php echo $email;?>">
+   <div class="col-sm-2">E-mail: </div><input type="text" name="email" maxlength="127" value="<?php echo $email;?>">
    <span class="error">* <?php echo $emailErr;?></span>
    <br><br>
-   Password: <input type="password" name="password" maxlength="20" value="<?php echo $password;?>">
+   <div class="col-sm-2">Password: </div><input type="password" name="password" maxlength="20" value="<?php echo $password;?>">
    <span class="error">* <?php echo $passwordErr;?></span>
    <br><br>
-   Telephone: <input type="text" name="telephone" maxlength="25" value="<?php echo $telephone;?>">
+   <div class="col-sm-2">Telephone: </div><input type="text" name="telephone" maxlength="25" value="<?php echo $telephone;?>">
    <span class="error">* <?php echo $telephoneErr;?></span>
    <br><br>
-   Address: <input type="text" name="address" maxlength="256" value="<?php echo $address;?>">
+   <div class="col-sm-2">Address: </div><input type="text" name="address" maxlength="256" value="<?php echo $address;?>">
    <span class="error">* <?php echo $addressErr;?></span>
    <br><br>
-   Avatar: <input type="text" name="avatar" maxlength="256" value="<?php echo $avatar;?>">
+   <div class="col-sm-2">Avatar: </div><input type="text" name="avatar" maxlength="256" value="<?php echo $avatar;?>">
    <span class="error">* <?php echo $avatarErr;?></span>
    <br><br>
    <input type="submit" name="submit" value="Submit"> 
 </form>
+</div>
+
+
 
 <?php
 
 if (strlen($firstname&&$lastname&&$email&&$password&&$telephone&&$address&&$avatar)>0){
-$sql = "INSERT INTO Users (First_name, Last_name, Email, Password, Phone_Number, Address , Avatar)
-VALUES ('$firstname', '$lastname', '$email', '$password', '$telephone', '$address', '$avatar')";
-$_SESSION["email"] = '$email';
-
+  $sql = "INSERT INTO Users (First_name, Last_name, Email, Password, Phone_Number, Address , Avatar)
+  VALUES ('$firstname', '$lastname', '$email', '$password', '$telephone', '$address', '$avatar')";
 }
-mysqli_close($conn);
-?>
+  if(!empty($conn->query($sql))){
+      $conn->close();
+      $_SESSION["email"] = '$email';
+       header("Location: ../index.php");
+  }
 
+  ?>
+</div>
 </body>
 </html>
