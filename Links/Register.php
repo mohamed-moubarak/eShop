@@ -178,10 +178,10 @@ function test_input($data) {
 
 <?php
 
-if (strlen($firstname&&$lastname&&$email&&$password&&$telephone&&$address&&$avatar)>0){
+
   $sql = "INSERT INTO Users (First_name, Last_name, Email, Password, Phone_Number, Address , Avatar)
   VALUES ('$firstname', '$lastname', '$email', '$password', '$telephone', '$address', '$avatar')";
-}
+
   if(!empty($conn->query($sql))){
       $_SESSION["email"] = '$email';
       $conn->close();
