@@ -183,9 +183,9 @@ if (strlen($firstname&&$lastname&&$email&&$password&&$telephone&&$address&&$avat
   VALUES ('$firstname', '$lastname', '$email', '$password', '$telephone', '$address', '$avatar')";
 }
   if(!empty($conn->query($sql))){
-      $conn->close();
       $_SESSION["email"] = '$email';
-       header("Location: ../index.php");
+      $conn->close();
+      header("Location: ../index.php");
   }
 
   ?>
